@@ -1,4 +1,3 @@
-<!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
 <script lang="ts">
 	import { FileDropzone, getModalStore, getToastStore, popup } from "@skeletonlabs/skeleton";
 	import type { ModalComponent, ModalSettings, PopupSettings } from '@skeletonlabs/skeleton';
@@ -15,6 +14,7 @@
 	// * Type definition
 	import type { DocVrfRes } from "$lib/types";
 	import { PUBLIC_TRUNSTILE_CLIENT_KEY } from '$env/static/public';
+	import { page } from '$app/stores';
 
 	// * Page resource
 	let files: FileList;
@@ -169,6 +169,16 @@
 		docVrfRes = null;
 	};
 	// / Event functions
+
+    const queryMethod = $page.url.searchParams.get('s');
+    const queryCode = $page.url.searchParams.get('c');
+
+	if (queryMethod && queryCode) {
+		(async() => await verifyByDocCode(
+			queryMethod,
+			queryCode
+		))();
+	}
 
 </script>
 <div class="
